@@ -1,0 +1,1 @@
+web: uv run gunicorn -k uvicorn.workers.UvicornWorker -w 2 app.main:app
