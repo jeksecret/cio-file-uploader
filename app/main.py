@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from app.routes.api.facility.me import router as facility_me_router
+from app.routes.api.facility.sync import router as facility_sync_router
 
 load_dotenv()
 
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(facility_me_router, prefix="/api/facility")
+app.include_router(facility_sync_router, prefix="/api/facility")
 
 @app.get("/")
 def read_root():
