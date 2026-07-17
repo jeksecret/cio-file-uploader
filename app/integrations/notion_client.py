@@ -13,3 +13,6 @@ def get_notion() -> Client:
         raise RuntimeError("Environment variable NOTION_API_TOKEN is not set.")
 
     return Client(auth=token)
+
+def update_notion_page(page_id: str, properties: dict) -> None:
+    get_notion().pages.update(page_id=page_id, properties=properties)

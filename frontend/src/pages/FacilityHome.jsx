@@ -99,8 +99,8 @@ export default function FacilityHome() {
                 </div>
                 {doc.status !== "submitted" && (
                   <FileUploadZone
-                    uploading={uploadingKey === "other"}
-                    onUpload={handleOtherUpload}
+                    uploading={uploadingKey === `doc-${doc.required_doc_id}`}
+                    onUpload={(files) => handleDocumentUpload(doc.required_doc_id, files)}
                   />
                 )}
               </li>
@@ -123,8 +123,8 @@ export default function FacilityHome() {
             </ul>
           )}
           <FileUploadZone
-            disabled={uploadingKey === "other"}
-            onFilesSelected={handleOtherUpload}
+            uploading={uploadingKey === "other"}
+            onUpload={handleOtherUpload}
           />
         </div>
       </div>

@@ -6,7 +6,6 @@ from supabase import create_client, Client
 load_dotenv()
 
 @lru_cache(maxsize=1)
-
 def get_supabase() -> Client:
     url = os.getenv("SUPABASE_URL")
     key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")

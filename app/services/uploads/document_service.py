@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 import dropbox
 from app.connection import get_supabase
 from app.integrations.dropbox_client import get_dropbox, resolve_dropbox_folder_path
+from app.services.facility.sync_notion_status_service import sync_notion_submission_status
 
 def _sanitize(name: str) -> str:
     return re.sub(r'[\/\\:*?"<>|]', "_", name).strip()
@@ -63,4 +64,10 @@ def upload_required_document(
         .upsert(submission, on_conflict="facility_id,required_doc_id")
         .execute()
     )
+
+    try:
+        sync_notion_submission_status(facility_id)
+    except Exception as e:
+        print(f"WARNING: Notion sync failed for facility {facility_id}: {e}")
+    
     return result.data[0]
