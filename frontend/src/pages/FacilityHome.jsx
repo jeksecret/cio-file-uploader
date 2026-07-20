@@ -23,8 +23,14 @@ export default function FacilityHome() {
   const loadFacility = useCallback(() => {
     fetchWithAuth("/api/facility/me", {}, getAccessToken)
       .then(setFacility)
-      .catch((err) => setError(err.message));
-  }, [getAccessToken]);
+      .catch((err) => {
+        if (err.status === 401 || err.status === 403) {
+          signOut();
+          return;
+        }
+        setError(err.message);
+      });
+  }, [getAccessToken, signOut]);
 
   useEffect(() => { loadFacility(); }, [loadFacility]);
 

@@ -16,7 +16,9 @@ export async function fetchWithAuth(path, options = {}, getAccessToken) {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.detail || `Request failed (${res.status})`);
+    const error = new Error(body.detail || `Request failed (${res.status})`);
+    error.status = res.status;
+    throw error;
   }
 
   return res.json();
