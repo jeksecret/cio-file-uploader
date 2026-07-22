@@ -8,6 +8,7 @@ from app.routes.api.documents.required import router as documents_required_route
 from app.routes.api.uploads.other import router as uploads_other_router
 from app.routes.api.uploads.document import router as uploads_document_router
 from app.routes.api.hooks.send_initial_email import router as send_initial_email_router
+from app.routes.api.hooks.reminder_mail import router as reminder_mail_router
 
 load_dotenv()
 
@@ -30,6 +31,7 @@ app.include_router(documents_required_router, prefix="/api/documents")
 app.include_router(uploads_other_router, prefix="/api/uploads")
 app.include_router(uploads_document_router, prefix="/api/uploads")
 app.include_router(send_initial_email_router, prefix="/api/hooks")
+app.include_router(reminder_mail_router, prefix="/api/hooks")
 
 @app.get("/")
 def read_root():
